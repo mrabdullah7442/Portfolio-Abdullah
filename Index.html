@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullah Hassan — Video Editor & Motion Graphics Artist</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --c1:#FF3CAC;--c2:#784BA0;--c3:#2B86C5;--c4:#F7971E;
+    --dark:#0A0A0F;--dark2:#111118;--dark3:#1A1A26;
+    --text:#F0F0F8;--muted:#9090A8;--border:rgba(255,255,255,0.08)
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(10,10,15,0.85);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo{font-weight:700;font-size:18px;background:linear-gradient(90deg,var(--c1),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .nav-links{display:flex;gap:1.5rem;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(120,75,160,0.25) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(43,134,197,0.15) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 70%,rgba(255,60,172,0.1) 0%,transparent 60%)}
+  .hero-tag{display:inline-block;background:rgba(255,60,172,0.15);border:1px solid rgba(255,60,172,0.3);color:var(--c1);font-size:13px;padding:6px 16px;border-radius:100px;margin-bottom:1.5rem;letter-spacing:1px}
+  .hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;line-height:1.05;margin-bottom:1rem;letter-spacing:-1px}
+  .hero h1 span{background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:2rem}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+  .btn-primary{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border:none;padding:12px 28px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s}
+  .btn-primary:hover{opacity:.85;transform:translateY(-1px)}
+  .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:var(--text);padding:12px 28px;border-radius:100px;font-size:15px;cursor:pointer;text-decoration:none;transition:border-color .2s,transform .2s}
+  .btn-outline:hover{border-color:rgba(255,255,255,0.5);transform:translateY(-1px)}
+  .hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+  .stat-num{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--c1),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .stat-lbl{font-size:12px;color:var(--muted);margin-top:2px}
+
+  section{padding:5rem 2rem;max-width:1000px;margin:0 auto}
+  .section-label{font-size:12px;letter-spacing:2px;color:var(--c1);font-weight:600;text-transform:uppercase;margin-bottom:.5rem}
+  .section-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin-bottom:2.5rem;line-height:1.2}
+  .divider{width:100%;height:1px;background:var(--border);margin:0}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+  .about-text{font-size:15px;color:var(--muted);line-height:1.8}
+  .about-text strong{color:var(--text)}
+  .about-cards{display:grid;gap:1rem}
+  .about-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem}
+  .about-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .about-card h4{font-size:14px;font-weight:600;margin-bottom:2px}
+  .about-card p{font-size:12px;color:var(--muted)}
+
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+  .skill-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color .2s,transform .2s}
+  .skill-card:hover{border-color:rgba(255,60,172,0.4);transform:translateY(-2px)}
+  .skill-icon{font-size:24px;margin-bottom:.75rem}
+  .skill-name{font-size:14px;font-weight:600;margin-bottom:.5rem}
+  .skill-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
+  .skill-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--c1),var(--c3))}
+
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--c1),var(--c3),transparent)}
+  .timeline-item{position:relative;margin-bottom:2.5rem}
+  .timeline-dot{position:absolute;left:-2.4rem;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 12px rgba(255,60,172,0.5)}
+  .timeline-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
+  .tl-role{font-size:16px;font-weight:700}
+  .tl-company{font-size:14px;font-weight:600;color:var(--c1);margin-top:2px}
+  .tl-location{font-size:12px;color:var(--muted)}
+  .tl-period{font-size:12px;color:var(--muted);background:var(--dark3);border:1px solid var(--border);padding:4px 10px;border-radius:100px;white-space:nowrap}
+  .tl-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .tl-bullets li{font-size:14px;color:var(--muted);padding-left:1.25rem;position:relative;line-height:1.6}
+  .tl-bullets li::before{content:'▸';position:absolute;left:0;color:var(--c1);font-size:12px}
+  .tl-highlight{background:rgba(255,60,172,0.1);border:1px solid rgba(255,60,172,0.2);border-radius:8px;padding:.75rem 1rem;margin-top:.75rem;font-size:13px;color:var(--c1);font-weight:500}
+
+  .ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+  .ach-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden;transition:transform .2s}
+  .ach-card:hover{transform:translateY(-2px)}
+  .ach-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c3))}
+  .ach-num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--c1),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem}
+  .ach-label{font-size:14px;font-weight:600;margin-bottom:.25rem}
+  .ach-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+  .brands{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+  .brand-pill{background:var(--dark3);border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:13px;font-weight:500;color:var(--text)}
+
+  .portfolio-note{background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(43,134,197,0.1));border:1px solid rgba(255,60,172,0.2);border-radius:12px;padding:1.5rem 2rem;text-align:center;margin-bottom:2rem}
+  .portfolio-note p{color:var(--muted);font-size:14px;margin-top:.5rem}
+  .portfolio-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border:none;padding:14px 32px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;margin-top:1rem;transition:opacity .2s,transform .2s}
+  .portfolio-btn:hover{opacity:.85;transform:translateY(-1px)}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .contact-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;transition:border-color .2s,transform .2s}
+  .contact-card:hover{border-color:rgba(255,60,172,0.4);transform:translateY(-2px)}
+  .contact-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .contact-card h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+  .contact-card p{font-size:13px;color:var(--muted)}
+
+  footer{text-align:center;padding:2.5rem;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+  footer span{background:linear-gradient(90deg,var(--c1),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600}
+
+  @media(max-width:640px){
+    .about-grid,.contact-grid{grid-template-columns:1fr}
+    .hero-stats{gap:1.5rem}
+    nav .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Abdullah Hassan</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-tag">Open to Work · Remote</div>
+    <h1>Video Editor &<br><span>Motion Graphics</span><br>Artist</h1>
+    <p class="hero-sub">3.5+ years crafting high-retention, cinematic content for channels with <strong style="color:#F0F0F8">50M+ combined subscribers</strong>. I don't just edit — I tell stories that keep audiences watching.</p>
+    <div class="hero-ctas">
+      <a href="https://drive.google.com/drive/folders/1pob3gP6NODwDEjAfIVqmfe_ZC6tsMwdL?usp=sharing" class="btn-primary" target="_blank">View My Portfolio →</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">50M+</div><div class="stat-lbl">Combined Subscribers</div></div>
+      <div><div class="stat-num">3.5+</div><div class="stat-lbl">Years Experience</div></div>
+      <div><div class="stat-num">1000+</div><div class="stat-lbl">Videos Edited</div></div>
+      <div><div class="stat-num">20+</div><div class="stat-lbl">Global Clients</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="section-title">Intentional Editing.<br>Real Results.</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm <strong>Abdullah Hassan</strong>, a Senior Video Editor and Motion Graphics Artist based in Lahore, Pakistan — working remotely with clients across the US, UK, and Pakistan.</p>
+      <br>
+      <p>I started as a solo YouTube creator, building a channel from <strong>0 to 2,000 subscribers in just 3–4 months</strong> with long-form educational content — handling everything from research and scripting to editing, thumbnail design, and publishing.</p>
+      <br>
+      <p>That experience turned into freelance brand partnerships with <strong>Wondershare, AE Juice, Fliki</strong>, and more. Today, as a Senior Video Editor at Visual Sync, I edit for some of the biggest creators in the game while managing a team of editors.</p>
+      <br>
+      <p>In 3.5+ years I've edited <strong>over 1,000 videos</strong> — and I work on a <strong>Mac built for heavy projects</strong>.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-icon" style="background:#2B0A3D;padding:0;overflow:hidden">
+          <svg viewBox="0 0 100 100" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#2B0A3D"/>
+            <text x="50" y="62" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#9999FF" text-anchor="middle">Pr</text>
+          </svg>
+        </div>
+        <div><h4>Adobe Premiere Pro</h4><p>Primary NLE for all long & short-form edits</p></div>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:#00005B;padding:0;overflow:hidden">
+          <svg viewBox="0 0 100 100" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#00005B"/>
+            <text x="50" y="62" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#9999FF" text-anchor="middle">Ae</text>
+          </svg>
+        </div>
+        <div><h4>After Effects</h4><p>Purposeful motion graphics & VFX</p></div>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:#001D34;padding:0;overflow:hidden">
+          <svg viewBox="0 0 100 100" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#001D34"/>
+            <text x="50" y="62" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#31A8FF" text-anchor="middle">Ps</text>
+          </svg>
+        </div>
+        <div><h4>Photoshop</h4><p>Thumbnails, compositing & design</p></div>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:rgba(247,151,30,0.2)">🎵</div>
+        <div><h4>Sound Design</h4><p>Music & SFX that enhance, not distract</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="section-label">What I Do</div>
+  <div class="section-title">Skills & Expertise</div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">🎬</div><div class="skill-name">Adobe Premiere Pro</div><div class="skill-bar"><div class="skill-fill" style="width:98%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">✨</div><div class="skill-name">After Effects</div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">🖼️</div><div class="skill-name">Photoshop</div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">⏱️</div><div class="skill-name">High-Retention Pacing</div><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">🎞️</div><div class="skill-name">Cinematic B-roll</div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">🔤</div><div class="skill-name">Typography & Titles</div><div class="skill-bar"><div class="skill-fill" style="width:93%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">🎵</div><div class="skill-name">Sound Design</div><div class="skill-bar"><div class="skill-fill" style="width:87%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">👥</div><div class="skill-name">Team Management</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+    <div class="skill-card"><div class="skill-icon">✍️</div><div class="skill-name">Scriptwriting</div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+  <div class="section-label">Work History</div>
+  <div class="section-title">Experience</div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">Senior Video Editor</div><div class="tl-company">Visual Sync · Lahore, Pakistan</div><div class="tl-location">Full-time · Media Agency</div></div>
+        <div class="tl-period">Nov 2024 – Present</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Edit high-retention video content generating millions of views across multiple channels</li>
+        <li>Manage and mentor a team of junior video editors, setting quality standards</li>
+        <li>Apply cinematic B-roll, purposeful motion graphics, and strategic sound design</li>
+      </ul>
+      <div class="tl-highlight">⚡ Promoted Junior → Senior in 6 months — a process that normally takes 1.5–2 years</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">Freelance Video Editor</div><div class="tl-company">Hill Town Advisors · USA (Remote)</div><div class="tl-location">Tax Advisory Firm</div></div>
+        <div class="tl-period">Jan 2025 – Oct 2025</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>10-month sustained engagement delivering branded video content for a US tax advisory firm</li>
+        <li>Maintained consistent visual identity, tone, and professional pacing throughout</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">Freelance Video Editor</div><div class="tl-company">Academy of Wealth · UK (Remote)</div><div class="tl-location">Production Company</div></div>
+        <div class="tl-period">2025 – Present</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Editing engaging, educational content with a focus on retention-driven storytelling</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">Freelance Video Editor</div><div class="tl-company">BuildServe · Florida, USA (Remote)</div><div class="tl-location">Construction Company</div></div>
+        <div class="tl-period">2024 – 2025</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Produced corporate video content adapting cinematic techniques to a B2B context</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">Video Editor</div><div class="tl-company">Dezinic Media · Lahore, Pakistan</div><div class="tl-location">Media Agency</div></div>
+        <div class="tl-period">Aug 2024 – Nov 2024</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Edited client campaigns and motion graphics projects for a Lahore-based media agency</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div><div class="tl-role">YouTube Creator & Freelance Editor</div><div class="tl-company">Self-Employed · Remote</div><div class="tl-location">Content Creation</div></div>
+        <div class="tl-period">2023 – 2024</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Grew YouTube channel from 0 → 2,000 subscribers in 3–4 months with long-form educational content</li>
+        <li>Solo production: research, scripting, editing, thumbnails, SEO, publishing</li>
+        <li>Secured brand deals and converted audience into 20+ freelance clients</li>
+      </ul>
+      <div class="brands">
+        <span class="brand-pill">Wondershare</span>
+        <span class="brand-pill">AE Juice</span>
+        <span class="brand-pill">Fliki</span>
+        <span class="brand-pill">+ more</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="achievements">
+  <div class="section-label">By the Numbers</div>
+  <div class="section-title">Key Achievements</div>
+  <div class="ach-grid">
+    <div class="ach-card">
+      <div class="ach-num">50M+</div>
+      <div class="ach-label">Combined Subscribers</div>
+      <div class="ach-desc">Edited content for channels with over 50 million combined subscribers, generating millions of views</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">1000+</div>
+      <div class="ach-label">Videos Edited</div>
+      <div class="ach-desc">Over a thousand polished, high-retention videos delivered across 3.5+ years of professional editing</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">6 mo</div>
+      <div class="ach-label">Junior → Senior Promotion</div>
+      <div class="ach-desc">Fastest promotion in Visual Sync history. The normal timeline is 1.5–2 years</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">0→2K</div>
+      <div class="ach-label">YouTube Subscribers</div>
+      <div class="ach-desc">Built a channel from scratch to 2,000 subs in 3–4 months with long-form educational content</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">20+</div>
+      <div class="ach-label">Freelance Clients</div>
+      <div class="ach-desc">Worked with 20+ companies globally including US, UK, and Pakistan-based brands</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">🏆</div>
+      <div class="ach-label">Divisional Debater</div>
+      <div class="ach-desc">Dozens of awards, represented college at divisional level — sharp communicator and strategic thinker</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="portfolio">
+  <div class="section-label">My Work</div>
+  <div class="section-title">Portfolio</div>
+  <div class="portfolio-note">
+    <div style="font-size:2rem">🎬</div>
+    <div style="font-size:16px;font-weight:700;margin-top:.5rem">See My Editing in Action</div>
+    <p>Long-form educational content, short-form reels, motion graphics, brand campaigns — it's all in there.</p>
+    <a href="https://drive.google.com/drive/folders/1pob3gP6NODwDEjAfIVqmfe_ZC6tsMwdL?usp=sharing" class="portfolio-btn" target="_blank">Open Portfolio Drive →</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem">
+    <div class="ach-card" style="text-align:center"><div style="font-size:2rem;margin-bottom:.5rem">📺</div><div class="ach-label">YouTube Long-form</div><div class="ach-desc">High-retention educational content</div></div>
+    <div class="ach-card" style="text-align:center"><div style="font-size:2rem;margin-bottom:.5rem">📱</div><div class="ach-label">Short-form Reels</div><div class="ach-desc">Punchy, scroll-stopping edits</div></div>
+    <div class="ach-card" style="text-align:center"><div style="font-size:2rem;margin-bottom:.5rem">✨</div><div class="ach-label">Motion Graphics</div><div class="ach-desc">Purposeful, not decorative</div></div>
+    <div class="ach-card" style="text-align:center"><div style="font-size:2rem;margin-bottom:.5rem">🏢</div><div class="ach-label">Corporate / Brand</div><div class="ach-desc">Professional B2B content</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="section-label">Let's Work Together</div>
+  <div class="section-title">Get in Touch</div>
+  <p style="color:var(--muted);margin-bottom:1.5rem;font-size:15px">Available for remote work. Based in Lahore, Pakistan. Mac-powered for heavy projects.</p>
+  <div class="contact-grid">
+    <a href="mailto:mr.abdullah7442@gmail.com" class="contact-card">
+      <div class="contact-icon" style="background:rgba(255,60,172,0.15)">📧</div>
+      <div><h4>Email</h4><p>mr.abdullah7442@gmail.com</p></div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/1pob3gP6NODwDEjAfIVqmfe_ZC6tsMwdL?usp=sharing" class="contact-card" target="_blank">
+      <div class="contact-icon" style="background:rgba(43,134,197,0.15)">🎬</div>
+      <div><h4>Portfolio</h4><p>View my work on Google Drive</p></div>
+    </a>
+    <div class="contact-card" style="cursor:default">
+      <div class="contact-icon" style="background:rgba(120,75,160,0.2)">📍</div>
+      <div><h4>Location</h4><p>Lahore, Pakistan · Remote Worldwide</p></div>
+    </div>
+    <div class="contact-card" style="cursor:default">
+      <div class="contact-icon" style="background:rgba(247,151,30,0.15)">💻</div>
+      <div><h4>Setup</h4><p>Mac · Built for heavy projects</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Crafted by <span>Abdullah Hassan</span> · Video Editor & Motion Graphics Artist · Lahore, Pakistan</p>
+  <p style="margin-top:.5rem;font-size:12px">Adobe Premiere Pro · After Effects · Photoshop · Available for remote work</p>
+</footer>
+
+</body>
+</html>
